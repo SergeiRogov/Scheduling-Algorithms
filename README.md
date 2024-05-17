@@ -1,6 +1,6 @@
 # COMP354 – Operating Systems
 ### Project Part B
-Authors: **Serger Rogov** & **Ivan Kosiakov**
+Authors: **Sergei Rogov** & **Ivan Kosiakov**
 
 ____
 

@@ -10,7 +10,7 @@ package scheduling_algorithms;
  * 		  Has the form [task name] [priority] [CPU burst]
  */
 public class Task {
-	private String taskName;
+    private String taskName;
     private int priority;
     private int cpuBurst;
     

@@ -27,6 +27,6 @@ public interface Algorithm {
 	 * @method pickNetTask
 	 * @brief Selects the next task to be scheduled.
 	 */
-	public Task pickNetTask();
+	public Task pickNextTask();
 	
 }

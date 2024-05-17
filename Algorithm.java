@@ -12,7 +12,7 @@ package scheduling_algorithms;
  *        	1) 	schedule() method for obtaining 
  *        		the next task to be run on the CPU.
  *        
- *        	2) 	pickNetTask() method pick next task 
+ *        	2) 	pickNextTask() method pick next task 
  *        		to be executed.
  */
 public interface Algorithm {
@@ -24,7 +24,7 @@ public interface Algorithm {
 	public void schedule();
 	
 	/**
-	 * @method pickNetTask
+	 * @method pickNextTask
 	 * @brief Selects the next task to be scheduled.
 	 */
 	public Task pickNextTask();

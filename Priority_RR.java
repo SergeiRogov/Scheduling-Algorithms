@@ -21,11 +21,11 @@ public class Priority_RR implements Algorithm {
 	}
 
 	/**
-	 * @method pickNetTask
+	 * @method pickNextTask
 	 * @brief Selects the next task to be scheduled with Priority_RR algorithm.
 	 */
 	@Override
-	public Task pickNetTask() {
+	public Task pickNextTask() {
 		// TODO Auto-generated method stub
 		return null;
 	}

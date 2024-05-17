@@ -21,11 +21,11 @@ public class Priority implements Algorithm {
 	}
 
 	/**
-	 * @method pickNetTask
+	 * @method pickNextTask
 	 * @brief Selects the next task to be scheduled with Priority algorithm.
 	 */
 	@Override
-	public Task pickNetTask() {
+	public Task pickNextTask() {
 		// TODO Auto-generated method stub
 		return null;
 	}

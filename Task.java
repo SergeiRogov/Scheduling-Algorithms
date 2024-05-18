@@ -10,7 +10,8 @@ package scheduling_algorithms;
  * 		  Has the form [task name] [priority] [CPU burst]
  */
 public class Task {
-    private String taskName;
+	
+	private String taskName;
     private int priority;
     private int cpuBurst;
     
@@ -80,6 +81,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "Task [taskName=" + this.taskName + ", priority=" + this.priority + ", cpuBurst=" + this.cpuBurst + "]";
+        return "\nTask [taskName=" + this.taskName + ", priority=" + this.priority + ", cpuBurst=" + this.cpuBurst + "]";
     }
 }

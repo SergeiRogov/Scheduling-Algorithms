@@ -29,6 +29,10 @@ public enum SchedulingAlgorithm {
         this.name = name;
     }
 
+    /**
+     * @method getName Gets the name of the algorithm.
+     * @return The name of the algorithm.
+     */
     public String getName() {
         return name;
     }
@@ -47,6 +51,10 @@ public enum SchedulingAlgorithm {
         }
     }
 
+    /**
+     * @method toString Representation an algorithm as a string.
+     * @return String representation of an algorithm.
+     */
     @Override
     public String toString() {
         return name;

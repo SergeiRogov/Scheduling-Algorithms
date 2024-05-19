@@ -19,10 +19,29 @@ public class Priority implements Algorithm {
 	@Override
 	public void schedule(ArrayList<Task> tasks) {
 		System.out.println("\nScheduling with Priority...");
+		
+		int currentTime = 0; // Current time in the CPU schedule
+		
 		while (!tasks.isEmpty()) {
             Task task = pickNextTask(tasks);
             if (task != null) {
+            	task.setWaitingTime(currentTime - task.getArrivalTime());
+            	
+            	if (task.getResponseTime() == 0) {
+                    task.setResponseTime(currentTime - task.getArrivalTime());
+                }
+            	
+            	
                 CPU.run(task);
+                currentTime += task.getCpuBurst();
+                
+                
+                task.setTurnaroundTime(currentTime-task.getArrivalTime());
+                
+                
+                System.out.println("Task " + task.getTaskName() + ": Waiting Time = " + task.getWaitingTime() +
+                        ", Turnaround Time = " + task.getTurnaroundTime() +
+                        ", Response Time = " + task.getResponseTime());
             }
         }
 		System.out.println("Completed!");

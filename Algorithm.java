@@ -21,12 +21,12 @@ public interface Algorithm {
 	 * @method schedule
 	 * @brief Implementation of a scheduling algorithm.
 	 */
-	public void schedule();
+	public void schedule(ArrayList<Task> tasks);
 	
 	/**
 	 * @method pickNextTask
 	 * @brief Selects the next task to be scheduled.
 	 */
-	public Task pickNextTask();
+	public Task pickNextTask(ArrayList<Task> tasks);
 	
 }

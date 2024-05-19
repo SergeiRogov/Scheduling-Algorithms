@@ -56,7 +56,7 @@ public class Driver {
 		Algorithm selectedAlgorithm = selectSchedulingAlgorithm();
 		System.out.println("\nYou picked: " + selectedAlgorithm);
 		
-		selectedAlgorithm.schedule();
+		selectedAlgorithm.schedule(tasks);
 		
 	}
 

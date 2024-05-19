@@ -27,33 +27,33 @@ public class SJF implements Algorithm {
 		int currentTime = 0; // Current time in the CPU schedule
 		
 		while (!tasks.isEmpty()) {
-            Task task = pickNextTask(tasks);
-            if (task != null) {
-            	task.setWaitingTime(currentTime - task.getArrivalTime());
-            	
-            	if (task.getResponseTime() == 0) {
-                    task.setResponseTime(currentTime - task.getArrivalTime());
-                }
-            	
-                CPU.run(task);
-                currentTime += task.getCpuBurst();
-                
-                task.setTurnaroundTime(currentTime-task.getArrivalTime());
-                
-        		responseTimeSum += task.getResponseTime();
-        		waitingTimeSum += task.getWaitingTime();
-        		turnaroundTimeSum += task.getTurnaroundTime();
-                
-                System.out.println("Task " + task.getTaskName() + ": Waiting Time = " + task.getWaitingTime() +
-                        ", Turnaround Time = " + task.getTurnaroundTime() +
-                        ", Response Time = " + task.getResponseTime());
-            }
-        }
+	            Task task = pickNextTask(tasks);
+	            if (task != null) {
+	            	task.setWaitingTime(currentTime - task.getArrivalTime());
+	            	
+	            	if (task.getResponseTime() == 0) {
+	                    task.setResponseTime(currentTime - task.getArrivalTime());
+	                }
+	            	
+	                CPU.run(task);
+	                currentTime += task.getCpuBurst();
+	                
+	                task.setTurnaroundTime(currentTime-task.getArrivalTime());
+	                
+	        		responseTimeSum += task.getResponseTime();
+	        		waitingTimeSum += task.getWaitingTime();
+	        		turnaroundTimeSum += task.getTurnaroundTime();
+	                
+	                System.out.println("Task " + task.getTaskName() + ": Waiting Time = " + task.getWaitingTime() +
+	                        ", Turnaround Time = " + task.getTurnaroundTime() +
+	                        ", Response Time = " + task.getResponseTime());
+	            }
+	        }
 		
 		if (taskCounter != 0) {
-            System.out.println("\nAverage Waiting Time = " + (waitingTimeSum / taskCounter) +
-                    ", Average Turnaround Time = " + (turnaroundTimeSum / taskCounter) +
-                    ", Average Response Time = " + (responseTimeSum / taskCounter));
+	            System.out.println("\nAverage Waiting Time = " + Double.valueOf(waitingTimeSum / taskCounter) +
+	                    ", Average Turnaround Time = " + Double.valueOf(turnaroundTimeSum / taskCounter) +
+	                    ", Average Response Time = " + Double.valueOf(responseTimeSum / taskCounter));
 		}
 	
 		System.out.println("Completed!");

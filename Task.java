@@ -25,14 +25,14 @@ public class Task {
      * @param priority The priority of the task.
      * @param cpuBurst The CPU burst time of the task.
      */
-    public Task(String taskName, int priority, int cpuBurst) {
+    public Task(final String taskName, final int priority, final int cpuBurst) {
     	setTaskName(taskName);
     	setPriority(priority);
     	setCpuBurst(cpuBurst);
-	this.waitingTime = 0;
-	this.arrivalTime = 0;
-	this.responseTime = 0;
-        this.turnaroundTime = 0;
+    	setWaitingTime(0);
+		setArrivalTime(0);
+		setResponseTime(0);
+		setTurnaroundTime(0);
     }
     
     /**
@@ -47,7 +47,7 @@ public class Task {
      * @method setTaskName Sets the name of the task.
      * @param taskName The name of the task.
      */
-    public void setTaskName(String taskName) {
+    public void setTaskName(final String taskName) {
         this.taskName = taskName;
     }
 
@@ -63,7 +63,7 @@ public class Task {
      * @method setPriority Sets the priority of the task.
      * @param priority The priority of the task.
      */
-    public void setPriority(int priority) {
+    public void setPriority(final int priority) {
         this.priority = priority;
     }
 
@@ -79,7 +79,7 @@ public class Task {
      * @method setCpuBurst Sets the CPU burst time of the task.
      * @param cpuBurst The CPU burst time of the task.
      */
-    public void setCpuBurst(int cpuBurst) {
+    public void setCpuBurst(final int cpuBurst) {
         this.cpuBurst = cpuBurst;
     }
 
@@ -95,7 +95,7 @@ public class Task {
      * @method setArrivalTime Sets the arrival time of the task.
      * @param arrivalTime The arrival time of the task.
      */
-    public void setArrivalTime(int arrivalTime) {
+    public void setArrivalTime(final int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -111,7 +111,7 @@ public class Task {
      * @method setWaitingTime Sets the waiting time of the task.
      * @param waitingTime The waiting time of the task.
      */
-    public void setWaitingTime(int waitingTime) {
+    public void setWaitingTime(final int waitingTime) {
         this.waitingTime = waitingTime;
     }
 
@@ -127,7 +127,7 @@ public class Task {
      * @method setTurnaroundTime Sets the turnaround time of the task.
      * @param turnaroundTime The turnaround time of the task.
      */
-    public void setTurnaroundTime(int turnaroundTime) {
+    public void setTurnaroundTime(final int turnaroundTime) {
         this.turnaroundTime = turnaroundTime;
     }
 
@@ -143,7 +143,7 @@ public class Task {
      * @method setArrivalTime Sets the arrival time of the task.
      * @param arrivalTime The arrival time of the task.
      */
-    public void setResponseTime(int responseTime) {
+    public void setResponseTime(final int responseTime) {
         this.responseTime = responseTime;
     }
 

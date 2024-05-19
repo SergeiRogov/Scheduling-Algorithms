@@ -4,6 +4,8 @@
  */
 package scheduling_algorithms;
 
+import java.util.ArrayList;
+
 /**
  * @interface Algorithm
  * @brief Generic scheduling algorithm interface. 

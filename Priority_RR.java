@@ -51,7 +51,10 @@ public class Priority_RR implements Algorithm {
                     task.setCpuBurst(task.getCpuBurst() - TIME_QUANTUM);
                     // Re-add the task to the end of the appropriate priority queue
                     priorityQueueMap.get(task.getPriority()).add(task);
-            	}           
+            	}   
+            	
+            	System.out.println("Running Task [taskName=" + task.getTaskName() + ", priority=" 
+ 					   + task.getPriority() + ", cpuBurst=" + task.getCpuBurst() + "]");
             }
         }
 		System.out.println("Completed!");

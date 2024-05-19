@@ -15,9 +15,7 @@ public class CPU {
      * @brief Simulates running a task on the CPU.
      * @param task The task to run.
      */
-    public static void run(Task task) {
-        System.out.println("Running task: " + task);
-        // Simulate task execution with a sleep (just for demonstration purposes)
+    public static void run(final Task task) {
         try {
             Thread.sleep(task.getCpuBurst() * 50);
         } catch (InterruptedException e) {

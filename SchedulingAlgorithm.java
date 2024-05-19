@@ -25,7 +25,7 @@ public enum SchedulingAlgorithm {
      * @brief Constructor to initialize the algorithm
      * @param algorithm Scheduling algorithm.
      */
-	SchedulingAlgorithm(Algorithm algorithm) {
+	SchedulingAlgorithm(final Algorithm algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -52,7 +52,7 @@ public enum SchedulingAlgorithm {
      * @param ordinal The ordinal of the algorithm.
      * @return The corresponding SchedulingAlgorithm enum value.
      */
-    public static SchedulingAlgorithm fromOrdinal(int ordinal) {
+    public static SchedulingAlgorithm fromOrdinal(final int ordinal) {
         if (ordinal >= 0 && ordinal < values().length) {
             return values()[ordinal];
         } else {

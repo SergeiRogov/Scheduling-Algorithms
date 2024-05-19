@@ -37,21 +37,20 @@ public class FCFS implements Algorithm {
 	            	
 	                CPU.run(task);
 	                currentTime += task.getCpuBurst();
-	                
-	                
+
 	                task.setTurnaroundTime(currentTime-task.getArrivalTime());
 	                
 	        		responseTimeSum += task.getResponseTime();
 	        		waitingTimeSum += task.getWaitingTime();
 	        		turnaroundTimeSum += task.getTurnaroundTime();
 	                
-	                System.out.println("Task " + task.getTaskName() + ": Waiting Time = " + task.getWaitingTime() +
-	                        ", Turnaround Time = " + task.getTurnaroundTime() +
-	                        ", Response Time = " + task.getResponseTime());
+	        		System.out.println("Running Task [taskName=" + task.getTaskName() + ", priority=" + task.getPriority() + ", cpuBurst=" 
+	                        + task.getCpuBurst() + ", Waiting Time=" + task.getWaitingTime() + ", Turnaround Time = " 
+	                        + task.getTurnaroundTime() + ", Response Time = " + task.getResponseTime() + "]");
 	            }
 	        }
 		
-		if (taskCounter != 0) {
+		if (taskCounter > 0) {
 	            System.out.println("\nAverage Waiting Time = " + Double.valueOf(waitingTimeSum / taskCounter) +
 	                    ", Average Turnaround Time = " + Double.valueOf(turnaroundTimeSum / taskCounter) +
 	                    ", Average Response Time = " + Double.valueOf(responseTimeSum / taskCounter));
@@ -83,4 +82,4 @@ public class FCFS implements Algorithm {
         return "FCFS algorithm";
     }
 
-}
+}              

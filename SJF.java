@@ -20,6 +20,10 @@ public class SJF implements Algorithm {
 	public void schedule(ArrayList<Task> tasks) {
 		System.out.println("\nScheduling with SJF...");
 		
+		int taskCounter = tasks.size();
+		int responseTimeSum = 0;
+		int waitingTimeSum = 0;
+		int turnaroundTimeSum = 0;
 		int currentTime = 0; // Current time in the CPU schedule
 		
 		while (!tasks.isEmpty()) {
@@ -31,19 +35,27 @@ public class SJF implements Algorithm {
                     task.setResponseTime(currentTime - task.getArrivalTime());
                 }
             	
-            	
                 CPU.run(task);
                 currentTime += task.getCpuBurst();
                 
-                
                 task.setTurnaroundTime(currentTime-task.getArrivalTime());
                 
+        		responseTimeSum += task.getResponseTime();
+        		waitingTimeSum += task.getWaitingTime();
+        		turnaroundTimeSum += task.getTurnaroundTime();
                 
                 System.out.println("Task " + task.getTaskName() + ": Waiting Time = " + task.getWaitingTime() +
                         ", Turnaround Time = " + task.getTurnaroundTime() +
                         ", Response Time = " + task.getResponseTime());
             }
         }
+		
+		if (taskCounter != 0) {
+            System.out.println("\nAverage Waiting Time = " + (waitingTimeSum / taskCounter) +
+                    ", Average Turnaround Time = " + (turnaroundTimeSum / taskCounter) +
+                    ", Average Response Time = " + (responseTimeSum / taskCounter));
+		}
+	
 		System.out.println("Completed!");
 		
 	}

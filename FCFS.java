@@ -4,6 +4,8 @@
  */
 package scheduling_algorithms;
 
+import java.util.ArrayList;
+
 /**
  * @class FCFS
  * @brief Implementation of First-Come,First-Served scheduling algorithm.
@@ -15,9 +17,15 @@ public class FCFS implements Algorithm {
 	 * @brief Implementation of a FCFS scheduling algorithm.
 	 */
 	@Override
-	public void schedule() {
-		// TODO Auto-generated method stub
-		
+	public void schedule(ArrayList<Task> tasks) {
+		System.out.println("\nScheduling with FCFS...");
+		while (!tasks.isEmpty()) {
+            Task task = pickNextTask(tasks);
+            if (task != null) {
+                CPU.run(task);
+            }
+        }
+		System.out.println("Completed!");
 	}
 
 	/**
@@ -25,9 +33,21 @@ public class FCFS implements Algorithm {
 	 * @brief Selects the next task to be scheduled with FCFS algorithm.
 	 */
 	@Override
-	public Task pickNextTask() {
-		// TODO Auto-generated method stub
-		return null;
+	public Task pickNextTask(ArrayList<Task> tasks) {
+		if (!tasks.isEmpty()) {
+            return tasks.remove(0); // Pick the first task in the list
+        } else {
+            return null; // No task available
+        }
 	}
+	
+	/**
+     * @method toString Representation an algorithm as a string.
+     * @return String representation of an algorithm.
+     */
+    @Override
+    public String toString() {
+        return "FCFS algorithm";
+    }
 
 }

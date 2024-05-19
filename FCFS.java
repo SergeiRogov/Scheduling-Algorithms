@@ -34,11 +34,12 @@ public class FCFS implements Algorithm {
 	 */
 	@Override
 	public Task pickNextTask(ArrayList<Task> tasks) {
-		if (!tasks.isEmpty()) {
-            return tasks.remove(0); // Pick the first task in the list
-        } else {
-            return null; // No task available
-        }
+		
+		if (tasks.isEmpty()) {
+			return null; // No task available
+		}
+		
+		return tasks.remove(0); // Pick the first task in the list
 	}
 	
 	/**

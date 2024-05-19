@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class RR implements Algorithm {
 	
-	private static final int TIME_QUANTUM = 20;
+	private static final int TIME_QUANTUM = 10;
 
 	/**
 	 * @method schedule

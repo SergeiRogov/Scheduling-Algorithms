@@ -17,11 +17,11 @@ public class Driver {
 	/**
      * @method selectSchedulingAlgorithm
      * @brief Prompts the user to select a scheduling algorithm.
-     * @return The selected scheduling algorithm.
+     * @return The name of selected scheduling algorithm.
      */
-    public static SchedulingAlgorithm selectSchedulingAlgorithm() {
+    public static Algorithm selectSchedulingAlgorithm() {
         Scanner scanner = new Scanner(System.in);
-        SchedulingAlgorithm selectedAlgorithm = null;
+        Algorithm selectedAlgorithm = null;
 
         while (selectedAlgorithm == null) {
             System.out.println("\nPlease select a scheduling algorithm:\n");
@@ -33,13 +33,13 @@ public class Driver {
             String input = scanner.nextLine();
             try {
                 int choice = Integer.parseInt(input) - 1; // Convert to zero-based index
-                selectedAlgorithm = SchedulingAlgorithm.fromOrdinal(choice);
+                selectedAlgorithm = SchedulingAlgorithm.fromOrdinal(choice).getAlgorithm();
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input. Please try again.");
             }
         }
-
         scanner.close(); 
+        
         return selectedAlgorithm;
     }
 	
@@ -49,10 +49,14 @@ public class Driver {
 	 */
 	public static void main(String[] args) {
 		
-		SchedulingAlgorithm selectedAlgorithm = selectSchedulingAlgorithm();
-		System.out.println("\nYou picked: " + selectedAlgorithm);
 		ArrayList<Task> tasks = TaskReader.readTasks();
+		System.out.println("Tasks:");
 		System.out.println(tasks);
+		
+		Algorithm selectedAlgorithm = selectSchedulingAlgorithm();
+		System.out.println("\nYou picked: " + selectedAlgorithm);
+		
+		selectedAlgorithm.schedule();
 		
 	}
 

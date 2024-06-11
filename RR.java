@@ -22,41 +22,32 @@ public class RR implements Algorithm {
 	public void schedule(ArrayList<Task> tasks) {
 		
 		System.out.println("\nScheduling with RR...");
-		int tasksCount = tasks.size();
 		
 		ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
-		
-		SchedulingStatistics stats = new SchedulingStatistics(tasks);
-        int currentTime = 0; // Current time in the CPU schedule
+		SchedulingStatistics stats = new SchedulingStatistics(tasksCopy);
 		
 		while (!tasks.isEmpty()) {
 			
             Task task = pickNextTask(tasks);
-   
             if (task != null) {
             	
             	boolean isFirstRun = task.getIsFirstRun();
  
             	if (task.getCpuBurst() <= TIME_QUANTUM) {
-            		
-            		stats.updateTaskTimes(task, currentTime, isFirstRun);
 
+            		stats.updateTaskTimes(task, isFirstRun);
             		CPU.run(task);
-            		currentTime += task.getCpuBurst();
-            		
+    
             	} else {
             		       
                     int remainingCPUburst = task.getCpuBurst() - TIME_QUANTUM;
                     task.setCpuBurst(TIME_QUANTUM);
-                    
-                    stats.updateTaskTimes(task, currentTime, isFirstRun);
-                    
-                    
+
+                    stats.updateTaskTimes(task, isFirstRun);
             		CPU.run(task);
-            		currentTime += TIME_QUANTUM;
             		
             		task.setCpuBurst(remainingCPUburst);
-            		task.setQuantumArrivalTime(currentTime);
+            		task.setQuantumArrivalTime(stats.getCurrentTime());
             		
             		tasks.add(task);
             	}
@@ -66,15 +57,8 @@ public class RR implements Algorithm {
         		}
             }
         }
-		
-		if (tasksCount > 0) {
-			for (Task task : tasksCopy) {
-				System.out.println(task.toStringStats());
-	        }
-			stats.printAverages();
-		}
-		
-		System.out.println("\nCompleted!");
+		stats.printTimestamp();
+		stats.printStatistics();
 	}
 
 	/**
@@ -88,7 +72,7 @@ public class RR implements Algorithm {
 			return null; // No task available
 		}
 		
-		return tasks.remove(0);
+		return tasks.remove(0); // Pick the first task in the list
 	}
 	
 	/**

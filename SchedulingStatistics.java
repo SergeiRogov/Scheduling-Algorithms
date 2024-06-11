@@ -3,18 +3,18 @@ package scheduling_algorithms;
 import java.util.ArrayList;
 
 class SchedulingStatistics {
-	
-    private int responseTimeSum;
-    private int waitingTimeSum;
-    private int turnaroundTimeSum;
-    private int tasksCount;
+
+    private final ArrayList<Task> tasksCopy;
+    private int currentTime;
     
-    public SchedulingStatistics(final ArrayList<Task> tasks) {
-    	this.tasksCount = tasks.size();
-    	System.out.println("------------------------------" + 0 + "------------------------------");
+    public SchedulingStatistics(final ArrayList<Task> tasksCopy) {
+    	this.tasksCopy = tasksCopy;
+    	this.currentTime = 0;
     }
 
-    public void updateTaskTimes(final Task task, final int currentTime, final boolean isFirstRun) {
+    public void updateTaskTimes(final Task task, final boolean isFirstRun) {
+    	
+    	printTimestamp();
     	
     	if (isFirstRun) {
             task.setResponseTime(currentTime - task.getOriginalArrivalTime());
@@ -23,17 +23,56 @@ class SchedulingStatistics {
     	task.setQuantumWaitingTime(currentTime - task.getQuantumArrivalTime());
         task.setTotalWaitingTime(task.getTotalWaitingTime() + task.getQuantumWaitingTime());
         
-        task.setTurnaroundTime(currentTime + task.getCpuBurst() - task.getOriginalArrivalTime());
+        currentTime += task.getCpuBurst();
         
-        System.out.println("------------------------------" + currentTime + "------------------------------");
-        
+        task.setTurnaroundTime(currentTime - task.getOriginalArrivalTime());
+
     }
     
-    public void printAverages() {
-        if (tasksCount > 0) {
-            System.out.println("\nAverage Waiting Time = " + (double) waitingTimeSum / tasksCount +
-                    "\nAverage Turnaround Time = " + (double) turnaroundTimeSum / tasksCount +
-                    "\nAverage Response Time = " + (double) responseTimeSum / tasksCount);
+    public int getCurrentTime() {
+        return this.currentTime;
+    }
+    
+    public void printTimestamp() {
+    	System.out.println("------------------------------" + currentTime + "------------------------------");
+    }
+    
+    public void printStatistics() {
+    	System.out.println("\nCompleted!");
+    	
+    	if (tasksCopy.size() < 1) {
+    		System.out.println("No tasks were provided");
+        	return;
+        } 
+		
+		System.out.println("\nTasks statistics:\n");
+		for (Task task : tasksCopy) {
+			System.out.println(task.toStringStats());
         }
+		
+		System.out.println(toStringAverages());
+    }
+    
+    public String toStringAverages() {
+    	
+    	int tasksCount = tasksCopy.size();
+
+        if (tasksCount < 1) {
+        	return "No tasks were provided";
+        } 
+        
+        int responseTimeSum = 0;
+        int waitingTimeSum = 0;
+        int turnaroundTimeSum = 0;
+       
+        for (Task task : tasksCopy) {
+        	responseTimeSum += task.getResponseTime();
+        	waitingTimeSum += task.getTotalWaitingTime();
+        	turnaroundTimeSum += task.getTurnaroundTime();
+    	}
+        
+        return "\nAverage Waiting Time = " + waitingTimeSum * 1.0 / tasksCount +
+                "\nAverage Turnaround Time = " + turnaroundTimeSum * 1.0 / tasksCount +
+                "\nAverage Response Time = " + responseTimeSum * 1.0 / tasksCount;
     }
 }

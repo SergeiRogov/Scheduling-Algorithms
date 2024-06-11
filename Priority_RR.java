@@ -39,23 +39,43 @@ public class Priority_RR implements Algorithm {
 		
 		groupTasksByPriority(tasks);
 		
+		ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
+		SchedulingStatistics stats = new SchedulingStatistics(tasksCopy);
+		
 		while (!priorityQueueMap.isEmpty()) {
-            Task task = pickNextTask(tasks);
+	
+            Task task = pickNextTask(tasks); 
             if (task != null) {
             	
+            	boolean isFirstRun = task.getIsFirstRun();
+            	
             	if (task.getCpuBurst() <= TIME_QUANTUM || originalQueueSizes.get(task.getPriority()) <= 1) {
+            		
+            		stats.updateTaskTimes(task, isFirstRun);
             		CPU.run(task);
+          		
             	} else {
-            		// Simulate running the task for the time quantum
-                    CPU.run(new Task(task.getTaskName(), task.getPriority(), TIME_QUANTUM));
-                    task.setCpuBurst(task.getCpuBurst() - TIME_QUANTUM);
+            		
+            		int remainingCPUburst = task.getCpuBurst() - TIME_QUANTUM;
+                    task.setCpuBurst(TIME_QUANTUM);
+
+            		stats.updateTaskTimes(task, isFirstRun);
+            		CPU.run(task);
+            		
+            		task.setCpuBurst(remainingCPUburst);
+            		task.setQuantumArrivalTime(stats.getCurrentTime());
+            		
                     // Re-add the task to the end of the appropriate priority queue
                     priorityQueueMap.get(task.getPriority()).add(task);
-            	}   
+            	} 
             	
+            	if (isFirstRun) {
+        			task.setIsFirstRun(false);
+        		}
             }
         }
-		System.out.println("Completed!");
+		stats.printTimestamp();
+		stats.printStatistics();
 	}
 
 	/**

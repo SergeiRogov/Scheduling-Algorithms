@@ -8,21 +8,29 @@ package scheduling_algorithms;
  * @class Task
  * @brief A task to be scheduled.
  * 		  Has the form [task name] [priority] [CPU burst]
- * 		  And additional fields [original arrival time] [quantum arrival time]
- *           					[total waiting time] [quantum waiting time] 
- *       					    [response time] [turnaround time]
+ * 		  And additional fields [original arrival time] 
+ * 								[quantum arrival time]
+ *           					[total waiting time] 
+ *           					[quantum waiting time] 
+ *       					    [response time] 
+ *       						[turnaround time]
+ *      						[isFirstRun]
  */
 public class Task {
 	
 	private String taskName;
     private int priority;
     private int cpuBurst;
+    
     final private int originalArrivalTime; 
     private int quantumArrivalTime; 
+    
     private int totalWaitingTime; 
     private int quantumWaitingTime;
+    
     private int responseTime; 
     private int turnaroundTime; 
+    
     private boolean isFirstRun; 
     
     /**
@@ -195,7 +203,9 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "\nTask [taskName=" + this.taskName + ", priority=" + this.priority + ", cpuBurst=" + this.cpuBurst + "]";
+        return "\nTask [taskName=" + this.taskName 
+        		+ ", priority=" + this.priority 
+        		+ ", cpuBurst=" + this.cpuBurst + "]";
     }
     
     /**
@@ -203,8 +213,10 @@ public class Task {
      * @return String representation of a running task.
      */
     public String toStringRunning() {
-        return "Running Task [taskName=" + getTaskName() + ", priority=" + getPriority() + ", cpuBurst=" 
-                + getCpuBurst() + ", Waiting=" + getQuantumWaitingTime() + "]";
+        return "Running Task [taskName=" + getTaskName() 
+        		+ ", priority=" + getPriority() 
+        		+ ", cpuBurst=" + getCpuBurst() 
+                + ", Waiting=" + getQuantumWaitingTime() + "]";
     }
     
     

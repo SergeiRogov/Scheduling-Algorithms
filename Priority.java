@@ -29,24 +29,10 @@ public class Priority implements Algorithm {
 		while (!tasks.isEmpty()) {
 	            Task task = pickNextTask(tasks);
 	            if (task != null) {
-	            	task.setWaitingTime(currentTime - task.getArrivalTime());
-	            	
-	            	if (task.getResponseTime() == 0) {
-	                    task.setResponseTime(currentTime - task.getArrivalTime());
-	                }
-	            	
+
 	                CPU.run(task);
 	                currentTime += task.getCpuBurst();
-	                
-	                task.setTurnaroundTime(currentTime-task.getArrivalTime());
-	                
-	        		responseTimeSum += task.getResponseTime();
-	        		waitingTimeSum += task.getWaitingTime();
-	        		turnaroundTimeSum += task.getTurnaroundTime();
-	                
-	        		System.out.println("Running Task [taskName=" + task.getTaskName() + ", priority=" + task.getPriority() + ", cpuBurst=" 
-	                        + task.getCpuBurst() + ", Waiting Time=" + task.getWaitingTime() + ", Turnaround Time = " 
-	                        + task.getTurnaroundTime() + ", Response Time = " + task.getResponseTime() + "]");
+
 	            }
 	        }
 		

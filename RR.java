@@ -20,24 +20,61 @@ public class RR implements Algorithm {
 	 */
 	@Override
 	public void schedule(ArrayList<Task> tasks) {
+		
 		System.out.println("\nScheduling with RR...");
+		int tasksCount = tasks.size();
+		
+		ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
+		
+		SchedulingStatistics stats = new SchedulingStatistics(tasks);
+        int currentTime = 0; // Current time in the CPU schedule
+		
 		while (!tasks.isEmpty()) {
+			
             Task task = pickNextTask(tasks);
+   
             if (task != null) {
+            	
+            	boolean isFirstRun = task.getIsFirstRun();
+ 
             	if (task.getCpuBurst() <= TIME_QUANTUM) {
+            		
+            		stats.updateTaskTimes(task, currentTime, isFirstRun);
+
             		CPU.run(task);
+            		currentTime += task.getCpuBurst();
+            		
             	} else {
-            		CPU.run(new Task(task.getTaskName(), task.getPriority(), TIME_QUANTUM));
-            		task.setCpuBurst(task.getCpuBurst() - TIME_QUANTUM);
+            		       
+                    int remainingCPUburst = task.getCpuBurst() - TIME_QUANTUM;
+                    task.setCpuBurst(TIME_QUANTUM);
+                    
+                    stats.updateTaskTimes(task, currentTime, isFirstRun);
+                    
+                    
+            		CPU.run(task);
+            		currentTime += TIME_QUANTUM;
+            		
+            		task.setCpuBurst(remainingCPUburst);
+            		task.setQuantumArrivalTime(currentTime);
+            		
             		tasks.add(task);
             	}
             	
-            	System.out.println("Running Task [taskName=" + task.getTaskName() + ", priority=" 
-            					   + task.getPriority() + ", cpuBurst=" + task.getCpuBurst() + "]");
-                
+            	if (isFirstRun) {
+        			task.setIsFirstRun(false);
+        		}
             }
         }
-		System.out.println("Completed!");
+		
+		if (tasksCount > 0) {
+			for (Task task : tasksCopy) {
+				System.out.println(task.toStringStats());
+	        }
+			stats.printAverages();
+		}
+		
+		System.out.println("\nCompleted!");
 	}
 
 	/**

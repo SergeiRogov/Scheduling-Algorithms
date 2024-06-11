@@ -17,6 +17,7 @@ public class CPU {
      */
     public static void run(final Task task) {
         try {
+        	System.out.println(task.toStringRunning());
             Thread.sleep(task.getCpuBurst() * 50);
         } catch (InterruptedException e) {
             e.printStackTrace();

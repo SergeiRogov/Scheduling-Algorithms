@@ -8,16 +8,22 @@ package scheduling_algorithms;
  * @class Task
  * @brief A task to be scheduled.
  * 		  Has the form [task name] [priority] [CPU burst]
+ * 		  And additional fields [original arrival time] [quantum arrival time]
+ *           					[total waiting time] [quantum waiting time] 
+ *       					    [response time] [turnaround time]
  */
 public class Task {
 	
 	private String taskName;
     private int priority;
     private int cpuBurst;
-    private int arrivalTime; 
-    private int waitingTime; 
+    final private int originalArrivalTime; 
+    private int quantumArrivalTime; 
+    private int totalWaitingTime; 
+    private int quantumWaitingTime;
     private int responseTime; 
     private int turnaroundTime; 
+    private boolean isFirstRun; 
     
     /**
      * @constructor Task To initialize a Task with the given name, priority, and CPU burst.
@@ -26,13 +32,21 @@ public class Task {
      * @param cpuBurst The CPU burst time of the task.
      */
     public Task(final String taskName, final int priority, final int cpuBurst) {
+    	
     	setTaskName(taskName);
     	setPriority(priority);
     	setCpuBurst(cpuBurst);
-    	setWaitingTime(0);
-		setArrivalTime(0);
-		setResponseTime(0);
-		setTurnaroundTime(0);
+
+    	originalArrivalTime = 0;
+    	setQuantumArrivalTime(0);
+    	
+    	setTotalWaitingTime(0);
+    	setQuantumWaitingTime(0);
+    	
+    	setTurnaroundTime(0);
+		setResponseTime(0); 
+		
+		setIsFirstRun(true);	
     }
     
     /**
@@ -87,32 +101,52 @@ public class Task {
      * @method getArrivalTime Gets the arrival time of the task.
      * @return The arrival time of the task.
      */
-    public int getArrivalTime() {
-        return arrivalTime;
+    public int getOriginalArrivalTime() {
+        return originalArrivalTime;
+    }
+    
+    /**
+     * @method getArrivalTime Gets the arrival time of the task.
+     * @return The arrival time of the task.
+     */
+    public int getQuantumArrivalTime() {
+        return quantumArrivalTime;
     }
 
     /**
      * @method setArrivalTime Sets the arrival time of the task.
      * @param arrivalTime The arrival time of the task.
      */
-    public void setArrivalTime(final int arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setQuantumArrivalTime(final int arrivalTime) {
+        this.quantumArrivalTime = arrivalTime;
     }
 
     /**
      * @method getWaitingTime Gets the waiting time of the task.
      * @return The waiting time of the task.
      */
-    public int getWaitingTime() {
-        return waitingTime;
+    public int getTotalWaitingTime() {
+        return totalWaitingTime;
     }
 
     /**
      * @method setWaitingTime Sets the waiting time of the task.
      * @param waitingTime The waiting time of the task.
      */
-    public void setWaitingTime(final int waitingTime) {
-        this.waitingTime = waitingTime;
+    public void setTotalWaitingTime(final int waitingTime) {
+        this.totalWaitingTime = waitingTime;
+    }
+    
+    public int getQuantumWaitingTime() {
+        return quantumWaitingTime;
+    }
+
+    /**
+     * @method setWaitingTime Sets the waiting time of the task.
+     * @param waitingTime The waiting time of the task.
+     */
+    public void setQuantumWaitingTime(final int waitingTime) {
+        this.quantumWaitingTime = waitingTime;
     }
 
     /**
@@ -146,7 +180,14 @@ public class Task {
     public void setResponseTime(final int responseTime) {
         this.responseTime = responseTime;
     }
+    
+    public boolean getIsFirstRun() {
+        return isFirstRun;
+    }
 
+    public void setIsFirstRun(final boolean isFirstRun) {
+        this.isFirstRun = isFirstRun;
+    }
 
     /**
      * @method toString Representation a task as a string.
@@ -155,5 +196,22 @@ public class Task {
     @Override
     public String toString() {
         return "\nTask [taskName=" + this.taskName + ", priority=" + this.priority + ", cpuBurst=" + this.cpuBurst + "]";
+    }
+    
+    /**
+     * @method toStringRunning Representation a running task as a string.
+     * @return String representation of a running task.
+     */
+    public String toStringRunning() {
+        return "Running Task [taskName=" + getTaskName() + ", priority=" + getPriority() + ", cpuBurst=" 
+                + getCpuBurst() + ", Waiting=" + getQuantumWaitingTime() + "]";
+    }
+    
+    
+    public String toStringStats() {
+        return "Task [taskName=" + getTaskName() 
+                + ", Waiting=" + getTotalWaitingTime() 
+                + ", Response=" + getResponseTime()
+                + ", Turnaround=" + getTurnaroundTime() + "]";
     }
 }

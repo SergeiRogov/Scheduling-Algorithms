@@ -53,8 +53,6 @@ public class Priority_RR implements Algorithm {
                     priorityQueueMap.get(task.getPriority()).add(task);
             	}   
             	
-            	System.out.println("Running Task [taskName=" + task.getTaskName() + ", priority=" 
- 					   + task.getPriority() + ", cpuBurst=" + task.getCpuBurst() + "]");
             }
         }
 		System.out.println("Completed!");

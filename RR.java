@@ -9,6 +9,10 @@ import java.util.ArrayList;
 /**
  * @class RR
  * @brief Implementation of Round-Robin scheduling algorithm.
+ * @detail It executes tasks one by one in a circular manner
+ * 		   for at most TIME_QUANTUM time units in one run.
+ *         If a task is not completed after TIME_QUANTUM, 
+ *         it is added to the end of the "ready queue" 
  */
 public class RR implements Algorithm {
 	
@@ -46,12 +50,11 @@ public class RR implements Algorithm {
             		CPU.run(task);
             		
             		task.setQuantumArrivalTime(stats.getCurrentTime());
-            		tasks.add(task);
+            		tasks.add(task); // Re-add the task to the end of the "ready queue" 
             	}
-            	
-            	
             }
         }
+		
 		stats.printTimestamp();
 		stats.printStatistics();
 	}

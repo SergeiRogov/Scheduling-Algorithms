@@ -9,6 +9,8 @@ import java.util.ArrayList;
 /**
  * @class SJF
  * @brief Implementation of Priority scheduling algorithm.
+ * @detail Executes tasks in order of their priority (top-priority tasks first).
+ *		 
  */
 public class Priority implements Algorithm {
 
@@ -35,6 +37,7 @@ public class Priority implements Algorithm {
                
             }
         }
+		
 		stats.printTimestamp();
 		stats.printStatistics();
 	}

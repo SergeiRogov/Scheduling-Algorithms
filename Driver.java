@@ -45,7 +45,7 @@ public class Driver {
 	
 	/**
 	 * @method main
-	 * @brief The main method to start the Scheduling-Algorithms application.
+	 * @brief The main method to kick-start the Scheduling-Algorithms application.
 	 */
 	public static void main(String[] args) {
 		

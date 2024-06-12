@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @interface Algorithm
  * @brief Generic scheduling algorithm interface. 
  * 
- *        Contains 2 methods:
+ * @details Contains 2 methods:
  *        	1) 	schedule() method for obtaining 
  *        		the next task to be run on the CPU.
  *        

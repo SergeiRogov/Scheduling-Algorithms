@@ -13,6 +13,9 @@ import java.util.Queue;
 /**
  * @class Priority_RR
  * @brief Implementation of Priority with Round-Robin scheduling algorithm.
+ * @detail It executes tasks in order of their priority (top-priority tasks first),
+ *		   and if several tasks have the same level of priority, algorithm 
+ *		   schedules those in a Round-Robin manner.
  */
 public class Priority_RR implements Algorithm {
 	
@@ -46,8 +49,7 @@ public class Priority_RR implements Algorithm {
 	
             Task task = pickNextTask(tasks); 
             if (task != null) {
-            
-            	
+
             	if (task.getRemainingBurst() <= TIME_QUANTUM || originalQueueSizes.get(task.getPriority()) <= 1) {
             		
             		task.setCurrentBurst(task.getRemainingBurst());
@@ -67,9 +69,9 @@ public class Priority_RR implements Algorithm {
                     // Re-add the task to the end of the appropriate priority queue
                     priorityQueueMap.get(task.getPriority()).add(task);
             	} 
-
             }
         }
+		
 		stats.printTimestamp();
 		stats.printStatistics();
 	}
@@ -119,7 +121,6 @@ public class Priority_RR implements Algorithm {
 	        }
 	       
 	        currentPriority = findHighestPriority();
-			
 	}
 	
 	/**

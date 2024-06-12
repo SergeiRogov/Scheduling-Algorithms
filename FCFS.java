@@ -1,6 +1,6 @@
 /**
  * @file FCFS.java
- * @brief This file contains a class for First-Come,First-Served algorithm.
+ * @brief This file contains a class for First-Come, First-Served algorithm.
  */
 package scheduling_algorithms;
 
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 /**
  * @class FCFS
  * @brief Implementation of First-Come,First-Served scheduling algorithm.
+ * @details It executes tasks one by one in the order of their arrival
+ *  		in the ready queue, without preemption.
  */
 public class FCFS implements Algorithm {
 
@@ -35,6 +37,7 @@ public class FCFS implements Algorithm {
                 
             }
 	    }
+		
 		stats.printTimestamp();
 		stats.printStatistics();
 	}

@@ -15,6 +15,7 @@ public class SJF implements Algorithm {
 	/**
 	 * @method schedule
 	 * @brief Implementation of a SJF scheduling algorithm.
+	 * @detail Executes tasks in order of their remaining CPU burst time (short tasks first).
 	 */
 	@Override
 	public void schedule(ArrayList<Task> tasks) {
@@ -35,6 +36,7 @@ public class SJF implements Algorithm {
                 
             }
         }
+		
 		stats.printTimestamp();
 		stats.printStatistics();
 	}

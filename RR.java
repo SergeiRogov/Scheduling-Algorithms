@@ -30,31 +30,26 @@ public class RR implements Algorithm {
 			
             Task task = pickNextTask(tasks);
             if (task != null) {
-            	
-            	boolean isFirstRun = task.getIsFirstRun();
- 
-            	if (task.getCpuBurst() <= TIME_QUANTUM) {
+        
+            	if (task.getRemainingBurst() <= TIME_QUANTUM) {
 
-            		stats.updateTaskTimes(task, isFirstRun);
+            		task.setCurrentBurst(task.getRemainingBurst());
+            		stats.updateTaskTimes(task);
             		CPU.run(task);
     
             	} else {
             		       
-                    int remainingCPUburst = task.getCpuBurst() - TIME_QUANTUM;
-                    task.setCpuBurst(TIME_QUANTUM);
+                    task.setCurrentBurst(TIME_QUANTUM);
+                    task.setRemainingBurst(task.getRemainingBurst() - TIME_QUANTUM);
 
-                    stats.updateTaskTimes(task, isFirstRun);
+                    stats.updateTaskTimes(task);
             		CPU.run(task);
             		
-            		task.setCpuBurst(remainingCPUburst);
             		task.setQuantumArrivalTime(stats.getCurrentTime());
-            		
             		tasks.add(task);
             	}
             	
-            	if (isFirstRun) {
-        			task.setIsFirstRun(false);
-        		}
+            	
             }
         }
 		stats.printTimestamp();

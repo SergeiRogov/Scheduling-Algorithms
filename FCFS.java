@@ -19,7 +19,7 @@ public class FCFS implements Algorithm {
 	@Override
 	public void schedule(ArrayList<Task> tasks) {
 		
-		System.out.println("Scheduling with FCFS...");
+		System.out.println("\nScheduling with FCFS...");
 		
 		ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
 		SchedulingStatistics stats = new SchedulingStatistics(tasksCopy);
@@ -28,15 +28,11 @@ public class FCFS implements Algorithm {
 			
             Task task = pickNextTask(tasks);
             if (task != null) {
-            	
-            	boolean isFirstRun = task.getIsFirstRun();
              
-                stats.updateTaskTimes(task, isFirstRun);
+            	task.setCurrentBurst(task.getRemainingBurst());
+                stats.updateTaskTimes(task);
                 CPU.run(task);    
                 
-                if (isFirstRun) {
-        			task.setIsFirstRun(false);
-        		}
             }
 	    }
 		stats.printTimestamp();

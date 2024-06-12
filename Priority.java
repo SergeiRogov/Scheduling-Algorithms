@@ -29,14 +29,10 @@ public class Priority implements Algorithm {
             Task task = pickNextTask(tasks);
             if (task != null) {
 
-            	boolean isFirstRun = task.getIsFirstRun();
-            	
-                stats.updateTaskTimes(task, isFirstRun);
+            	task.setCurrentBurst(task.getRemainingBurst());
+                stats.updateTaskTimes(task);
                 CPU.run(task);
-                
-                if (isFirstRun) {
-        			task.setIsFirstRun(false);
-        		}
+               
             }
         }
 		stats.printTimestamp();

@@ -29,14 +29,10 @@ public class SJF implements Algorithm {
             Task task = pickNextTask(tasks);
             if (task != null) {
 
-            	boolean isFirstRun = task.getIsFirstRun();
-
-                stats.updateTaskTimes(task, isFirstRun);
+            	task.setCurrentBurst(task.getRemainingBurst());
+                stats.updateTaskTimes(task);
                 CPU.run(task);
                 
-                if (isFirstRun) {
-        			task.setIsFirstRun(false);
-        		}
             }
         }
 		stats.printTimestamp();
@@ -57,7 +53,7 @@ public class SJF implements Algorithm {
 		Task smallestTask = tasks.get(0);
 
 		for (int i=1; i<tasks.size(); i++) {
-			if (tasks.get(i).getCpuBurst() < smallestTask.getCpuBurst()) {
+			if (tasks.get(i).getRemainingBurst() < smallestTask.getRemainingBurst()) {
 				smallestTask = tasks.get(i);
 			}
 		}

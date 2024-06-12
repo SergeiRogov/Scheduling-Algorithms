@@ -12,18 +12,19 @@ class SchedulingStatistics {
     	this.currentTime = 0;
     }
 
-    public void updateTaskTimes(final Task task, final boolean isFirstRun) {
+    public void updateTaskTimes(final Task task) {
     	
-    	printTimestamp();
+    	printTimestamp(); 
     	
-    	if (isFirstRun) {
+    	if (task.getIsFirstRun()) {
             task.setResponseTime(currentTime - task.getOriginalArrivalTime());
+            task.setIsFirstRun(false);
         }
     	
     	task.setQuantumWaitingTime(currentTime - task.getQuantumArrivalTime());
         task.setTotalWaitingTime(task.getTotalWaitingTime() + task.getQuantumWaitingTime());
         
-        currentTime += task.getCpuBurst();
+        currentTime += task.getCurrentBurst();
         
         task.setTurnaroundTime(currentTime - task.getOriginalArrivalTime());
 
